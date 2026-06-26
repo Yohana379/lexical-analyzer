@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexical Analyzer - Professional Token Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        .main-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1em;
+        }
+        .input-section {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 0.95em;
+        }
+        .code-input-wrapper {
+            position: relative;
+            display: flex;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        #lineNumbers {
+            background: #f5f7fa;
+            padding: 15px 10px;
+            text-align: right;
+            color: #95a5a6;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            user-select: none;
+            min-width: 50px;
+            border-right: 1px solid #e0e6ed;
+        }
+        textarea {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            background: #fafbfc;
+            color: #2c3e50;
+            min-height: 200px;
+        }
+        textarea:focus {
+            outline: none;
+            background: white;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e6ed;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        .file-upload {
+            margin: 20px 0;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .file-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ecf0f1;
+            color: #2c3e50;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            border: 2px solid #e0e6ed;
+        }
+        .file-label:hover {
+            background: #d5dbdb;
+            border-color: #bdc3c7;
+        }
+        .file-name {
+            margin-left: 10px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .sample-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .sample-btn {
+            padding: 8px 16px;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .sample-btn:hover {
+            background: #d5dbdb;
+            border-color: #95a5a6;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .results-section {
+            margin-top: 40px;
+            animation: fadeIn 0.4s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stats {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .export-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .export-json {
+            background: #27ae60;
+            color: white;
+        }
+        .export-json:hover {
+            background: #229954;
+        }
+        .export-csv {
+            background: #3498db;
+            color: white;
+        }
+        .export-csv:hover {
+            background: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .token-keyword { color: #e74c3c; font-weight: 600; }
+        .token-ident { color: #27ae60; }
+        .token-number { color: #d35400; font-weight: 500; }
+        .token-op { color: #9b59b6; }
+        .token-delim { color: #16a085; }
+        .token-error { 
+            color: #c0392b; 
+            font-weight: 600; 
+            background: #fadbd8;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .token-assign_op { color: #e91e63; font-weight: 600; }
+        .token-add_op { color: #4caf50; }
+        .token-sub_op { color: #ff9800; }
+        .token-mul_op { color: #2196f3; }
+        .token-div_op { color: #9c27b0; }
+        .token-eq_op { color: #00bcd4; font-weight: 600; }
+        .token-ne_op { color: #00bcd4; font-weight: 600; }
+        .token-lt_op { color: #00bcd4; }
+        .token-gt_op { color: #00bcd4; }
+        .token-le_op { color: #00bcd4; }
+        .token-ge_op { color: #00bcd4; }
+        .token-and_op { color: #3f51b5; }
+        .token-or_op { color: #3f51b5; }
+        .token-not_op { color: #3f51b5; }
+        .token-inc_op { color: #ff5722; }
+        .token-dec_op { color: #ff5722; }
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            display: none;
+        }
+        .error {
+            background: #fee;
+            color: #c0392b;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .legend h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            margin-top: 50px;
+        }
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span>🔍</span>
+                <span>Lexical Analyzer</span>
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="https://github.com/YOUR_USERNAME/lexical-analyzer" target="_blank">GitHub</a>
+                <a href="#legend">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-card">
+            <h1>🔍 Lexical Analyzer</h1>
+            <p class="subtitle">Professional Token Generator with Detailed Operator Categorization</p>
+            
+            <div class="input-section">
+                <label for="codeInput">Paste Source Code:</label>
+                <div class="code-input-wrapper">
+                    <div id="lineNumbers">1</div>
+                    <textarea id="codeInput" placeholder="Paste your code here..." oninput="updateLineNumbers()"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="languageSelect">Select Language:</label>
+                    <select id="languageSelect">
+                        <option value="auto">Auto-Detect</option>
+                        <option value="cpp">C/C++</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="javascript">JavaScript</option>
+                    </select>
+                </div>
+                
+                <div class="file-upload">
+                    <label for="fileInput" class="file-label">📁 Choose File</label>
+                    <input type="file" id="fileInput" accept=".txt,.py,.cpp,.java,.docx,.c,.js">
+                    <span class="file-name" id="fileName">No file chosen</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Or try a sample:</label>
+                    <div class="sample-buttons">
+                        <button class="sample-btn" onclick="loadSample('cpp')">C++ Example</button>
+                        <button class="sample-btn" onclick="loadSample('python')">Python Example</button>
+                        <button class="sample-btn" onclick="loadSample('java')">Java Example</button>
+                        <button class="sample-btn" onclick="loadSample('errors')">Error Test</button>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="analyzeCode()">🚀 Analyze Code</button>
+            </div>
+            
+            <div class="loading" id="loading">⏳ Analyzing...</div>
+            
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="stats" id="stats"></div>
+                
+                <div class="export-buttons" id="exportSection" style="display: none;">
+                    <button class="export-btn export-json" onclick="exportToJSON()">📥 Export as JSON</button>
+                    <button class="export-btn export-csv" onclick="exportToCSV()">📊 Export as CSV</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lexeme</th>
+                            <th>Token Type</th>
+                            <th>Line</th>
+                            <th>Column</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsTable"></tbody>
+                </table>
+
+                <div class="legend" id="legend">
+                    <h3>Token Types Legend</h3>
+                    <div class="legend-items">
+                        <div class="legend-item"><span class="token-keyword">KEYWORD</span> - Reserved words</div>
+                        <div class="legend-item"><span class="token-ident">IDENT</span> - Identifiers</div>
+                        <div class="legend-item"><span class="token-number">NUMBER</span> - Numbers</div>
+                        <div class="legend-item"><span class="token-assign_op">ASSIGN_OP</span> - Assignment</div>
+                        <div class="legend-item"><span class="token-add_op">ADD_OP</span> - Addition</div>
+                        <div class="legend-item"><span class="token-sub_op">SUB_OP</span> - Subtraction</div>
+                        <div class="legend-item"><span class="token-mul_op">MUL_OP</span> - Multiplication</div>
+                        <div class="legend-item"><span class="token-div_op">DIV_OP</span> - Division</div>
+                        <div class="legend-item"><span class="token-eq_op">EQ_OP</span> - Equality</div>
+                        <div class="legend-item"><span class="token-delim">DELIM</span> - Delimiters</div>
+                        <div class="legend-item"><span class="token-error">ERROR</span> - Errors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p style="margin: 5px 0;">Developed by <strong>Your Team Name</strong></p>
+            <p style="margin: 5px 0; font-size: 14px;">Web-Based Lexical Analyzer © 2026</p>
+            <p style="margin: 5px 0; font-size: 14px;">
+                <a href="https://github.com/YOUR_USERNAME/lexical-analyzer" target="_blank">View on GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+        let currentTokens = [];
+
+        function updateLineNumbers() {
+            const textarea = document.getElementById('codeInput');
+            const lineNumbers = document.getElementById('lineNumbers');
+            const lines = textarea.value.split('\n').length;
+            lineNumbers.innerHTML = Array(lines).fill(0).map((_, i) => i + 1).join('<br>');
+        }
+
+        function loadSample(type) {
+            const samples = {
+                cpp: `int main() {
+    int x = 42;
+    if (x > 10) {
+        return x + 3.14;
+    }
+    return 0;
+}`,
+                python: `def calculate(x, y):
+    if x > y:
+        return x + y
+    else:
+        return x - y
+
+result = calculate(10, 5)
+print(result)`,
+                java: `public class Main {
+    public static void main(String[] args) {
+        int x = 5 + 3;
+        if (x == 8) {
+            System.out.println("Hello");
+        }
+    }
+}`,
+                errors: `int @invalid #error $test
+float x = 10;
+if (x <= 5 && x >= 3) {
+    x++;
+}`
+            };
+            document.getElementById('codeInput').value = samples[type];
+            updateLineNumbers();
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('fileName').textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('codeInput').value = e.target.result;
+                    updateLineNumbers();
+                };
+                if (!file.name.endsWith('.docx')) {
+                    reader.readAsText(file);
+                }
+            }
+        });
+
+        async function analyzeCode() {
+            const fileInput = document.getElementById('fileInput');
+            const codeInput = document.getElementById('codeInput').value.trim();
+            const file = fileInput.files[0];
+
+            if (!file && !codeInput) {
+                alert('Please paste code or upload a file!');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const resultsSection = document.getElementById('resultsSection');
+
+            loading.style.display = 'block';
+            resultsSection.style.display = 'none';
+
+            try {
+                let response;
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    response = await fetch(`${API_URL}/tokenize-file`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    const formData = new FormData();
+                    formData.append('code', codeInput);
+                    response = await fetch(`${API_URL}/tokenize`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                }
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    displayResults(data.tokens);
+                } else {
+                    showError('Error: ' + data.message);
+                }
+            } catch (error) {
+                showError('Failed to connect to server. Make sure the backend is running!');
+                console.error(error);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function displayResults(tokens) {
+            currentTokens = tokens;
+            const resultsSection = document.getElementById('resultsSection');
+            const stats = document.getElementById('stats');
+            const tbody = document.getElementById('resultsTable');
+            const exportSection = document.getElementById('exportSection');
+
+            stats.innerHTML = `
+                <strong>Total Tokens:</strong> ${tokens.length} |
+                <strong>Keywords:</strong> ${tokens.filter(t => t.token_type === 'KEYWORD').length} |
+                <strong>Identifiers:</strong> ${tokens.filter(t => t.token_type === 'IDENT').length} |
+                <strong>Numbers:</strong> ${tokens.filter(t => t.token_type === 'NUMBER').length} |
+                <strong>Errors:</strong> ${tokens.filter(t => t.token_type === 'ERROR').length}
+            `;
+
+            tbody.innerHTML = '';
+
+            tokens.forEach(token => {
+                const row = document.createElement('tr');
+
+                const lexemeCell = document.createElement('td');
+                lexemeCell.textContent = token.lexeme;
+
+                const typeCell = document.createElement('td');
+                typeCell.textContent = token.token_type;
+                typeCell.className = `token-${token.token_type.toLowerCase()}`;
+
+                const lineCell = document.createElement('td');
+                lineCell.textContent = token.line;
+
+                const colCell = document.createElement('td');
+                colCell.textContent = token.column;
+
+                row.appendChild(lexemeCell);
+                row.appendChild(typeCell);
+                row.appendChild(lineCell);
+                row.appendChild(colCell);
+
+                tbody.appendChild(row);
+            });
+
+            exportSection.style.display = 'flex';
+            resultsSection.style.display = 'block';
+        }
+
+        function exportToJSON() {
+            const data = { tokens: currentTokens };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tokens.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportToCSV() {
+            let csv = 'Lexeme,Token Type,Line,Column\n';
+            currentTokens.forEach(t => {
+                csv += `${t.lexeme},${t.token_type},${t.line},${t.column}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tokens.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function showError(message) {
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.innerHTML = `<div class="error">${message}</div>` + resultsSection.innerHTML;
+            resultsSection.style.display = 'block';
+        }
+
+        // Initialize line numbers
+        updateLineNumbers();
+    </script>
+</body>
+</html>
