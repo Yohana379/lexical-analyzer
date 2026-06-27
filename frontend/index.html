@@ -270,11 +270,84 @@
         tr:last-child td {
             border-bottom: none;
         }
+        
+        /* Main Token Types */
         .token-keyword { color: #e74c3c; font-weight: 600; }
         .token-ident { color: #27ae60; }
         .token-number { color: #d35400; font-weight: 500; }
-        .token-op { color: #9b59b6; }
-        .token-delim { color: #16a085; }
+        .token-string { color: #16a085; font-style: italic; }
+        .token-char { color: #16a085; font-style: italic; }
+        .token-boolean { color: #8e44ad; font-weight: 600; }
+        .token-null { color: #8e44ad; font-weight: 600; }
+        
+        /* Arithmetic Operators */
+        .token-add_op { color: #4caf50; font-weight: 500; }
+        .token-sub_op { color: #ff9800; font-weight: 500; }
+        .token-mul_op { color: #2196f3; font-weight: 500; }
+        .token-div_op { color: #9c27b0; font-weight: 500; }
+        .token-mod_op { color: #ff5722; font-weight: 500; }
+        .token-power_op { color: #e91e63; font-weight: 500; }
+        .token-floor_div { color: #795548; font-weight: 500; }
+        
+        /* Assignment Operators */
+        .token-assign_op { color: #e91e63; font-weight: 600; }
+        .token-add_assign { color: #4caf50; font-weight: 600; }
+        .token-sub_assign { color: #ff9800; font-weight: 600; }
+        .token-mul_assign { color: #2196f3; font-weight: 600; }
+        .token-div_assign { color: #9c27b0; font-weight: 600; }
+        .token-mod_assign { color: #ff5722; font-weight: 600; }
+        
+        /* Comparison Operators */
+        .token-eq_op { color: #00bcd4; font-weight: 600; }
+        .token-ne_op { color: #00bcd4; font-weight: 600; }
+        .token-lt_op { color: #00bcd4; }
+        .token-gt_op { color: #00bcd4; }
+        .token-le_op { color: #00bcd4; }
+        .token-ge_op { color: #00bcd4; }
+        .token-spaceship { color: #00bcd4; font-weight: 600; }
+        
+        /* Logical Operators */
+        .token-and_op { color: #3f51b5; font-weight: 600; }
+        .token-or_op { color: #3f51b5; font-weight: 600; }
+        .token-not_op { color: #3f51b5; font-weight: 600; }
+        
+        /* Bitwise Operators */
+        .token-bit_and { color: #607d8b; font-weight: 500; }
+        .token-bit_or { color: #607d8b; font-weight: 500; }
+        .token-bit_xor { color: #607d8b; font-weight: 500; }
+        .token-bit_not { color: #607d8b; font-weight: 500; }
+        .token-lshift { color: #607d8b; font-weight: 500; }
+        .token-rshift { color: #607d8b; font-weight: 500; }
+        
+        /* Increment/Decrement */
+        .token-inc_op { color: #ff5722; font-weight: 600; }
+        .token-dec_op { color: #ff5722; font-weight: 600; }
+        
+        /* Special Operators */
+        .token-arrow { color: #795548; font-weight: 600; }
+        .token-fat_arrow { color: #795548; font-weight: 600; }
+        .token-scope_res { color: #795548; font-weight: 600; }
+        .token-null_coalesce { color: #ff9800; font-weight: 600; }
+        .token-safe_nav { color: #ff9800; font-weight: 600; }
+        .token-spread { color: #ff9800; font-weight: 600; }
+        .token-walrus { color: #e91e63; font-weight: 600; }
+        .token-at { color: #9c27b0; font-weight: 600; }
+        .token-question { color: #ff9800; font-weight: 600; }
+        
+        /* Delimiters - Specific Types */
+        .token-lparen { color: #16a085; font-weight: 600; }
+        .token-rparen { color: #16a085; font-weight: 600; }
+        .token-lbrace { color: #8e44ad; font-weight: 600; }
+        .token-rbrace { color: #8e44ad; font-weight: 600; }
+        .token-lbracket { color: #2980b9; font-weight: 600; }
+        .token-rbracket { color: #2980b9; font-weight: 600; }
+        .token-semicolon { color: #d35400; }
+        .token-comma { color: #d35400; }
+        .token-dot { color: #d35400; }
+        .token-colon { color: #d35400; }
+        .token-backtick { color: #2c3e50; font-weight: 600; }
+        
+        /* Error */
         .token-error { 
             color: #c0392b; 
             font-weight: 600; 
@@ -282,22 +355,7 @@
             padding: 2px 8px;
             border-radius: 4px;
         }
-        .token-assign_op { color: #e91e63; font-weight: 600; }
-        .token-add_op { color: #4caf50; }
-        .token-sub_op { color: #ff9800; }
-        .token-mul_op { color: #2196f3; }
-        .token-div_op { color: #9c27b0; }
-        .token-eq_op { color: #00bcd4; font-weight: 600; }
-        .token-ne_op { color: #00bcd4; font-weight: 600; }
-        .token-lt_op { color: #00bcd4; }
-        .token-gt_op { color: #00bcd4; }
-        .token-le_op { color: #00bcd4; }
-        .token-ge_op { color: #00bcd4; }
-        .token-and_op { color: #3f51b5; }
-        .token-or_op { color: #3f51b5; }
-        .token-not_op { color: #3f51b5; }
-        .token-inc_op { color: #ff5722; }
-        .token-dec_op { color: #ff5722; }
+        
         .loading {
             text-align: center;
             padding: 30px;
@@ -323,16 +381,26 @@
             margin-bottom: 20px;
             color: #2c3e50;
         }
+        .legend-section {
+            margin-bottom: 20px;
+        }
+        .legend-section h4 {
+            color: #34495e;
+            margin-bottom: 10px;
+            font-size: 1em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
         .legend-items {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
         }
         .legend-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
+            font-size: 13px;
         }
         footer {
             text-align: center;
@@ -400,7 +468,9 @@
                         <button class="sample-btn" onclick="loadSample('cpp')">C++ Example</button>
                         <button class="sample-btn" onclick="loadSample('python')">Python Example</button>
                         <button class="sample-btn" onclick="loadSample('java')">Java Example</button>
+                        <button class="sample-btn" onclick="loadSample('javascript')">JavaScript Example</button>
                         <button class="sample-btn" onclick="loadSample('errors')">Error Test</button>
+                        <button class="sample-btn" onclick="loadSample('advanced')">Advanced Operators</button>
                     </div>
                 </div>
                 
@@ -431,18 +501,111 @@
 
                 <div class="legend" id="legend">
                     <h3>Token Types Legend</h3>
-                    <div class="legend-items">
-                        <div class="legend-item"><span class="token-keyword">KEYWORD</span> - Reserved words</div>
-                        <div class="legend-item"><span class="token-ident">IDENT</span> - Identifiers</div>
-                        <div class="legend-item"><span class="token-number">NUMBER</span> - Numbers</div>
-                        <div class="legend-item"><span class="token-assign_op">ASSIGN_OP</span> - Assignment</div>
-                        <div class="legend-item"><span class="token-add_op">ADD_OP</span> - Addition</div>
-                        <div class="legend-item"><span class="token-sub_op">SUB_OP</span> - Subtraction</div>
-                        <div class="legend-item"><span class="token-mul_op">MUL_OP</span> - Multiplication</div>
-                        <div class="legend-item"><span class="token-div_op">DIV_OP</span> - Division</div>
-                        <div class="legend-item"><span class="token-eq_op">EQ_OP</span> - Equality</div>
-                        <div class="legend-item"><span class="token-delim">DELIM</span> - Delimiters</div>
-                        <div class="legend-item"><span class="token-error">ERROR</span> - Errors</div>
+                    
+                    <div class="legend-section">
+                        <h4>📝 Literals & Identifiers</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-keyword">KEYWORD</span> - Reserved words</div>
+                            <div class="legend-item"><span class="token-ident">IDENT</span> - Identifiers</div>
+                            <div class="legend-item"><span class="token-number">NUMBER</span> - Numbers</div>
+                            <div class="legend-item"><span class="token-string">STRING</span> - String literals</div>
+                            <div class="legend-item"><span class="token-char">CHAR</span> - Character literals</div>
+                            <div class="legend-item"><span class="token-boolean">BOOLEAN</span> - true/false</div>
+                            <div class="legend-item"><span class="token-null">NULL</span> - null/None</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>💬 Comments</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-comment_single">COMMENT_SINGLE</span> - // comment</div>
+                            <div class="legend-item"><span class="token-comment_multi">COMMENT_MULTI</span> - /* comment */</div>
+                            <div class="legend-item"><span class="token-hash_comment">HASH_COMMENT</span> - # comment</div>
+                            <div class="legend-item"><span class="token-docstring">DOCSTRING</span> - """ docstring """</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>➕ Arithmetic Operators</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-add_op">ADD_OP</span> - Addition</div>
+                            <div class="legend-item"><span class="token-sub_op">SUB_OP</span> - Subtraction</div>
+                            <div class="legend-item"><span class="token-mul_op">MUL_OP</span> - Multiplication</div>
+                            <div class="legend-item"><span class="token-div_op">DIV_OP</span> - Division</div>
+                            <div class="legend-item"><span class="token-mod_op">MOD_OP</span> - Modulus</div>
+                            <div class="legend-item"><span class="token-power_op">POWER_OP</span> - Exponentiation</div>
+                            <div class="legend-item"><span class="token-floor_div">FLOOR_DIV</span> - Floor division</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>🔀 Assignment Operators</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-assign_op">ASSIGN_OP</span> - Assignment</div>
+                            <div class="legend-item"><span class="token-add_assign">ADD_ASSIGN</span> - +=</div>
+                            <div class="legend-item"><span class="token-sub_assign">SUB_ASSIGN</span> - -=</div>
+                            <div class="legend-item"><span class="token-mul_assign">MUL_ASSIGN</span> - *=</div>
+                            <div class="legend-item"><span class="token-div_assign">DIV_ASSIGN</span> - /=</div>
+                            <div class="legend-item"><span class="token-mod_assign">MOD_ASSIGN</span> - %=</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>⚖️ Comparison Operators</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-eq_op">EQ_OP</span> - Equal</div>
+                            <div class="legend-item"><span class="token-ne_op">NE_OP</span> - Not equal</div>
+                            <div class="legend-item"><span class="token-lt_op">LT_OP</span> - Less than</div>
+                            <div class="legend-item"><span class="token-gt_op">GT_OP</span> - Greater than</div>
+                            <div class="legend-item"><span class="token-le_op">LE_OP</span> - Less/equal</div>
+                            <div class="legend-item"><span class="token-ge_op">GE_OP</span> - Greater/equal</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>🔗 Logical & Bitwise Operators</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-and_op">AND_OP</span> - Logical AND</div>
+                            <div class="legend-item"><span class="token-or_op">OR_OP</span> - Logical OR</div>
+                            <div class="legend-item"><span class="token-not_op">NOT_OP</span> - Logical NOT</div>
+                            <div class="legend-item"><span class="token-bit_and">BIT_AND</span> - Bitwise AND</div>
+                            <div class="legend-item"><span class="token-bit_or">BIT_OR</span> - Bitwise OR</div>
+                            <div class="legend-item"><span class="token-bit_xor">BIT_XOR</span> - Bitwise XOR</div>
+                            <div class="legend-item"><span class="token-lshift">LSHIFT</span> - Left shift</div>
+                            <div class="legend-item"><span class="token-rshift">RSHIFT</span> - Right shift</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>⚡ Increment/Decrement & Special</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-inc_op">INC_OP</span> - Increment</div>
+                            <div class="legend-item"><span class="token-dec_op">DEC_OP</span> - Decrement</div>
+                            <div class="legend-item"><span class="token-arrow">ARROW</span> - Arrow (->)</div>
+                            <div class="legend-item"><span class="token-fat_arrow">FAT_ARROW</span> - Fat arrow (=>)</div>
+                            <div class="legend-item"><span class="token-scope_res">SCOPE_RES</span> - Scope (::)</div>
+                            <div class="legend-item"><span class="token-null_coalesce">NULL_COALESCE</span> - Null coalescing</div>
+                            <div class="legend-item"><span class="token-safe_nav">SAFE_NAV</span> - Optional chaining</div>
+                            <div class="legend-item"><span class="token-spread">SPREAD</span> - Spread operator</div>
+                            <div class="legend-item"><span class="token-walrus">WALRUS</span> - Walrus operator</div>
+                        </div>
+                    </div>
+                    
+                    <div class="legend-section">
+                        <h4>🔲 Delimiters</h4>
+                        <div class="legend-items">
+                            <div class="legend-item"><span class="token-lparen">LPAREN</span> - Left (</div>
+                            <div class="legend-item"><span class="token-rparen">RPAREN</span> - Right )</div>
+                            <div class="legend-item"><span class="token-lbrace">LBRACE</span> - Left {</div>
+                            <div class="legend-item"><span class="token-rbrace">RBRACE</span> - Right }</div>
+                            <div class="legend-item"><span class="token-lbracket">LBRACKET</span> - Left [</div>
+                            <div class="legend-item"><span class="token-rbracket">RBRACKET</span> - Right ]</div>
+                            <div class="legend-item"><span class="token-semicolon">SEMICOLON</span> - Semicolon</div>
+                            <div class="legend-item"><span class="token-comma">COMMA</span> - Comma</div>
+                            <div class="legend-item"><span class="token-dot">DOT</span> - Dot</div>
+                            <div class="legend-item"><span class="token-colon">COLON</span> - Colon</div>
+                            <div class="legend-item"><span class="token-error">ERROR</span> - Errors</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -493,11 +656,28 @@ print(result)`,
         }
     }
 }`,
+                javascript: `const add = (a, b) => a + b;
+let result = add(5, 3);
+console.log(\`Result: \${result}\`);
+
+let obj = { name: "John" };
+let value = obj?.name ?? "default";`,
                 errors: `int @invalid #error $test
 float x = 10;
 if (x <= 5 && x >= 3) {
     x++;
-}`
+}`,
+                advanced: `// Advanced operators test
+int x = 5 ** 2;        // Power
+int y = 7 // 2;        // Floor division
+x += 10;               // Add assign
+x++;                   // Increment
+int z = a <=> b;       // Spaceship
+int w = a ?? b;        // Null coalesce
+int v = obj?.prop;     // Safe navigation
+int u = ...args;       // Spread
+int t = a := 5;        // Walrus
+std::cout << "Hello";  // Scope resolution`
             };
             document.getElementById('codeInput').value = samples[type];
             updateLineNumbers();
@@ -574,12 +754,20 @@ if (x <= 5 && x >= 3) {
             const tbody = document.getElementById('resultsTable');
             const exportSection = document.getElementById('exportSection');
 
+            // Count different token types
+            const counts = {};
+            tokens.forEach(t => {
+                counts[t.token_type] = (counts[t.token_type] || 0) + 1;
+            });
+
             stats.innerHTML = `
                 <strong>Total Tokens:</strong> ${tokens.length} |
-                <strong>Keywords:</strong> ${tokens.filter(t => t.token_type === 'KEYWORD').length} |
-                <strong>Identifiers:</strong> ${tokens.filter(t => t.token_type === 'IDENT').length} |
-                <strong>Numbers:</strong> ${tokens.filter(t => t.token_type === 'NUMBER').length} |
-                <strong>Errors:</strong> ${tokens.filter(t => t.token_type === 'ERROR').length}
+                <strong>Keywords:</strong> ${counts['KEYWORD'] || 0} |
+                <strong>Identifiers:</strong> ${counts['IDENT'] || 0} |
+                <strong>Numbers:</strong> ${counts['NUMBER'] || 0} |
+                <strong>Strings:</strong> ${counts['STRING'] || 0} |
+                <strong>Operators:</strong> ${Object.entries(counts).filter(([k]) => k.includes('_OP') || k.includes('_ASSIGN')).reduce((sum, [,v]) => sum + v, 0)} |
+                <strong>Errors:</strong> ${counts['ERROR'] || 0}
             `;
 
             tbody.innerHTML = '';
