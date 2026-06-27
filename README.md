@@ -7,15 +7,14 @@ A web application that converts source code into lexemes and tokens with maximum
 - Accurate line and column number tracking
 - File upload support (.txt, .py, .cpp, .docx)
 - Error handling (never crashes)
-- Beautiful, modern UI
 
 ## Team Members
-- Student 1: [Beamlak Temesgen]
-- Student 2: [Bezawit Desalegn]
-- Student 3: [Dagmawit Wondemagegn]
-- Student 4: [Tsion Ayew]
-- Student 5: [Yohana Tadesse]
-- Student 6: [Yared Girma]
+- Student 1: Beamlak Temesgen
+- Student 2: Bezawit Desalegn
+- Student 3: Dagmawit Wondemagegn
+- Student 4: Tsion Ayew
+- Student 5: Yared Girma
+- Student 6: Yohana Tadesse
 
 ## Installation
 
